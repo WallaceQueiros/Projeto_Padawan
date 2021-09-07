@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="./css/main.css">
+        <meta charset="utf-8">
+        <title>Projeto Padawan</title>
+    </head>
+    <body>
+        <div id="menu">
+            <button onclick="exemplo('https://jsonplaceholder.typicode.com/posts')">Posts</button> 
+            <button onclick="exemplo('https://jsonplaceholder.typicode.com/todos')">Todos</button>
+            <button onclick="exemplo('https://jsonplaceholder.typicode.com/albums')">Albums</button>
+        </div>
+        <div id="tabela"></div>
+        <script>
+            const exemplo = (url) => {
+                fetch(url)
+                    .then(response => response.json())
+                    .then(json => {
+                        // criando a tabela e a linha do cabeçalho
+                        const tabela = document.createElement('table');
+                        const headers = document.createElement('tr');
+
+                        // Pegando as chaves do json para botar no cabeçalho da tabela
+                        for (const header_value of Object.keys(json[0])) {
+                            var header = document.createElement('th');
+                            header.innerText = header_value;
+                            headers.appendChild(header);
+                        }
+                        
+                        // adicionando o cabeçalho na tabela
+                        tabela.appendChild(headers);
+
+                        // fazendo um loop entre todos os posts do json
+                        for (post of json) {
+                            var post_row = document.createElement('tr');
+
+                            // fazendo um loop entre os valores de todas as propriedades do json
+                            for (campo_value of Object.values(post)) {
+                                var campo = document.createElement('td');
+                                campo.innerText = campo_value;
+                                post_row.appendChild(campo);
+                            }
+                            // adicionando a linha de valores do post
+                            tabela.appendChild(post_row);
+                        }
+
+                        //substituindo todo o conteudo do div pela nova tabela
+                        document.getElementById('tabela').innerHTML = tabela.outerHTML;
+                    });
+            }
+         </script>
+    </body>
+</html>
