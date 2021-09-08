@@ -16,8 +16,12 @@ body{
 }
 
 button{
+    color: #efefef;
+    border: none;
+    background: none;
     padding: 0.5rem 2.5rem;  
     margin: 0rem 5rem;
+    cursor: pointer;
 }
 
 
